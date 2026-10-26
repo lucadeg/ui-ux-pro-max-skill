@@ -1,0 +1,24 @@
+name: Smoke test data
+
+on:
+  # Fork policy: manual execution through FounderOS/AdminGate.
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run aggregate offline data gate
+        run: npm --prefix cli run verify:data
